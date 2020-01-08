@@ -1,0 +1,20 @@
+<form [formGroup]="formCandidato">
+
+    <div *ngIf="!step" class="d-flex flex-column" formGroupName="dadosAcesso">
+        <input formControlName="username" type="text">
+        <input formControlName="email" type="text">
+        <input formControlName="password" [type]="typePass">
+        <button type="button" on-click="step = true" class="btn">PRÓXIMO</button>
+    </div>
+
+    <div *ngIf="step" class="d-flex flex-column" formGroupName="dadosPessoais">
+        <input formControlName="name" type="text">
+        <input formControlName="cpf" type="text">
+        <input formControlName="rg" type="text">
+        <input formControlName="birth_date" type="text">
+        <input formControlName="phone" type="text">
+        <button type="button" on-click="enviarDados()" class="btn">ENVIAR</button>
+    </div>
+
+
+</form>
