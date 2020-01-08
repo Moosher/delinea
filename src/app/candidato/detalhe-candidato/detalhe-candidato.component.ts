@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { merge } from '@angular/router/src/utils/collection';
+import { CandidatoService } from '../candidato.service';
+import { Candidate } from '../entities/candidate';
 
 @Component({
     selector: 'detalhe-candidato',
@@ -12,6 +14,10 @@ export class DetalheCandidatoComponent implements OnInit {
     formCandidato: FormGroup;
     typePass: string;
     step: boolean;
+
+    constructor(
+        private candidatoService: CandidatoService
+    ){}
 
     ngOnInit() {
         this.formCandidato = new FormGroup({
@@ -33,6 +39,13 @@ export class DetalheCandidatoComponent implements OnInit {
 
     enviarDados() {
         let candidato = merge(this.formCandidato.get('dadosPessoais').value, this.formCandidato.get('dadosAcesso').value);
-        console.log(candidato);
+        this.candidatoService.cadastrarCandidato(candidato).subscribe(
+            res => {
+                console.log(res)
+            },
+            err => {
+                console.log(err)
+            }
+        );
     }
 }

@@ -1,1 +1,21 @@
-<h3>hey</h3>
+<form class="w-100 d-flex flex-column align-items-center">
+    <div class="mb-2 w-50">
+        <label for="user">Nome de Usuário</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="user" placeholder="Usuário">
+        </div>
+    </div>
+    <div class="mb-2 w-50">
+        <label for="password">Senha</label>
+        <div class="input-group">
+            <input type="password" class="form-control" id="password" placeholder="Senha">
+            <div class="input-group-append">
+                <span class="input-group-text">$</span>
+            </div>
+        </div>
+    </div>
+    <div class="w-50 mt-2 d-flex justify-content-between">
+        <button type="button" class="btn btn-primary" on-click="doLogin()">ENVIAR</button>
+        <a routerLink="/cadastrar" class="btn btn-secondary">CADASTRAR</a>
+    </div>
+</form>
