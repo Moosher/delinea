@@ -1,16 +1,16 @@
-<form class="w-100 d-flex flex-column align-items-center">
+<form [formGroup]="formLogin" class="w-100 d-flex flex-column align-items-center">
     <div class="mb-2 w-50">
-        <label for="user">Nome de Usuário</label>
+        <label for="user">E-mail</label>
         <div class="input-group">
-            <input type="text" class="form-control" id="user" placeholder="Usuário">
+            <input type="text" formControlName="username" class="form-control" id="user">
         </div>
     </div>
     <div class="mb-2 w-50">
         <label for="password">Senha</label>
         <div class="input-group">
-            <input type="password" class="form-control" id="password" placeholder="Senha">
+            <input [type]="showPassowrd ? 'text' : 'password'" formControlName="password" class="form-control" id="password">
             <div class="input-group-append">
-                <span class="input-group-text">$</span>
+                <a class="input-group-text" on-click="showPassowrd = !showPassowrd"><i [class]="showPassowrd ? 'fas fa-eye-slash' : 'fas fa-eye'" ></i></a>
             </div>
         </div>
     </div>

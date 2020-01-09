@@ -9,15 +9,22 @@ import { AuthService } from './auth.service';
 })
 export class AuthComponent implements OnInit {
 
+    formLogin: FormGroup;
+    showPassowrd: boolean;
+    
     constructor(
         private authService: AuthService
-    ){}
+    ) { }
 
     ngOnInit() {
+        this.formLogin = new FormGroup({
+            username: new FormControl(null, Validators.required),
+            password: new FormControl(null, Validators.required)
+        });
     }
 
-    doLogin(){
-        this.authService.doLogin("candidato", "123").subscribe(
+    doLogin() {
+        this.authService.doLogin(this.formLogin.value).subscribe(
             res => {
                 console.log(res)
             },

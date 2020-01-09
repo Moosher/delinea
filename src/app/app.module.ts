@@ -7,6 +7,7 @@ import { CandidatoModule } from './candidato/candidato.module';
 import { AuthComponent } from './auth/auth.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from './auth/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CandidatoService } from './candidato/candidato.service';
 import { AuthGuard } from './auth/auth.guard';
 @NgModule({
@@ -18,6 +19,8 @@ import { AuthGuard } from './auth/auth.guard';
     CandidatoModule,
     BrowserModule,
     HttpModule,
+    FormsModule, 
+    ReactiveFormsModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true })
   ],
   providers: [
