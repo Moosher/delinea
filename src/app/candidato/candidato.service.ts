@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CandidatoService {
+    
+    getCandidatos(): Observable<any> {
+        throw new Error("Method not implemented.");
+    }
 
     constructor(private http: Http){}
 

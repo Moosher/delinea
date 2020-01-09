@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CandidatoComponent } from './candidato.component';
 import { RouterModule } from '@angular/router';
+import { ListagemCandidatoComponent } from './listagem-candidato/listagem-candidato.component';
 
 @NgModule({
   declarations: [
     CandidatoComponent,
-    DetalheCandidatoComponent
+    DetalheCandidatoComponent,
+    ListagemCandidatoComponent
   ],
   imports: [
     CommonModule,
