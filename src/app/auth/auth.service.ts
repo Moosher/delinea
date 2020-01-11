@@ -9,7 +9,7 @@ const GRANT_TYPE = "password";
 @Injectable()
 export class AuthService {
 
-    token;
+    token: string;
 
     constructor(private http: Http) { }
 
@@ -24,6 +24,10 @@ export class AuthService {
             login,
             { headers: headers }
         );
-        // localStorage.setItem("TOKEN", window.btoa(user + ':' + password));
+    }
+
+    setToken(token: string){
+        this.token = token;
+        localStorage.setItem("TOKEN", token);
     }
 }

@@ -1,20 +1,67 @@
-<form [formGroup]="formCandidato">
-
-    <div *ngIf="!step" class="d-flex flex-column" formGroupName="dadosAcesso">
-        <input formControlName="username" type="text">
-        <input formControlName="email" type="text">
-        <input formControlName="password" [type]="typePass">
-        <button type="button" on-click="step = true" class="btn">PRÓXIMO</button>
+<div class="d-flex justify-content-center w-100">
+    <img *ngIf="enviando" src="assets/loader.svg" alt="loader" width="50" height="50">
+    <span *ngIf="msgErro" class="alert alert-danger">{{msgErro}}</span>
+</div>
+<form [formGroup]="formCandidato" class="w-100 d-flex flex-column align-items-center">
+    <div *ngIf="!step" class="w-100 d-flex flex-column align-items-center" formGroupName="dadosAcesso">
+        <div class="mb-2 w-50">
+            <label for="user">Nome de usuário</label>
+            <div class="input-group">
+                <input type="text" formControlName="username" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="mb-2 w-50">
+            <label for="user">E-mail</label>
+            <div class="input-group">
+                <input type="email" formControlName="email" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="mb-2 w-50">
+            <label for="password">Senha</label>
+            <div class="input-group">
+                <input [type]="showPassowrd ? 'text' : 'password'" formControlName="password" class="form-control" id="password">
+                <div class="input-group-append">
+                    <a class="input-group-text" on-click="showPassowrd = !showPassowrd"><i [class]="showPassowrd ? 'fas fa-eye-slash' : 'fas fa-eye'" ></i></a>
+                </div>
+            </div>
+        </div>
+        <button type="button" on-click="step = true" class="btn btn-primary w-50">PRÓXIMO</button>
     </div>
 
-    <div *ngIf="step" class="d-flex flex-column" formGroupName="dadosPessoais">
-        <input formControlName="name" type="text">
-        <input formControlName="cpf" type="text">
-        <input formControlName="rg" type="text">
-        <input formControlName="birth_date" type="text">
-        <input formControlName="phone" type="text">
-        <button type="button" on-click="enviarDados()" class="btn">ENVIAR</button>
+    <div *ngIf="step" class="w-100 d-flex flex-column align-items-center" formGroupName="dadosPessoais">
+        <div class="mb-2 w-50">
+            <label for="user">Nome completo</label>
+            <div class="input-group">
+                <input type="text" formControlName="name" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="mb-2 w-50">
+            <label for="user">CPF</label>
+            <div class="input-group">
+                <input type="tel" formControlName="cpf" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="mb-2 w-50">
+            <label for="user">RG</label>
+            <div class="input-group">
+                <input type="tel" formControlName="rg" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="mb-2 w-50">
+            <label for="user">Data de nascimento</label>
+            <div class="input-group">
+                <input type="date" formControlName="birth_date" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="mb-2 w-50">
+            <label for="user">Telefone para contato</label>
+            <div class="input-group">
+                <input type="tel" formControlName="phone" class="form-control" id="user">
+            </div>
+        </div>
+        <div class="w-50 d-flex justify-content-between">
+            <button type="button" on-click="step = false" class="btn btn-secondary">VOLTAR</button>
+            <button type="button" on-click="enviarDados()" class="btn btn-primary">ENVIAR</button>
+        </div>
     </div>
-
-
 </form>

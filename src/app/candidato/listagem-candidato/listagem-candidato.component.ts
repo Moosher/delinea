@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { merge } from '@angular/router/src/utils/collection';
 import { CandidatoService } from '../candidato.service';
 import { Candidate } from '../entities/candidate';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'listagem-candidato',
@@ -12,9 +11,12 @@ import { Candidate } from '../entities/candidate';
 export class ListagemCandidatoComponent implements OnInit {
 
     candidatos: Array<Candidate>;
-
+    buscando: boolean;
+    msgErro: string;
+    
     constructor(
-        private candidatoService: CandidatoService
+        private candidatoService: CandidatoService,
+        private router: Router
     ){}
 
     ngOnInit() {
@@ -22,12 +24,29 @@ export class ListagemCandidatoComponent implements OnInit {
     }
 
     carregarCandidatos() {
+        this.buscando = true;
         this.candidatoService.getCandidatos().subscribe(
             res => {
-                console.log(res)
+                this.buscando = false;
+                this.candidatos = JSON.parse(res._body);
             },
             err => {
-                console.log(err)
+                this.buscando = false;
+                this.msgErro =`${err.status}: ${err._body}`;
+            }
+        );
+    }
+
+    editCandidato(candidato: Candidate){
+        this.router.navigate(["candidato/editar", window.btoa(JSON.stringify(candidato))]);
+    }
+
+    deleteCandidato(candidato: Candidate){
+        this.candidatoService.deleteCandidato(candidato.id).subscribe(
+            res => {
+            },
+            err => {
+                this.msgErro =`${err.status}: ${err._body}`;
             }
         );
     }

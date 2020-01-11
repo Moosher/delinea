@@ -5,17 +5,31 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CandidatoService {
-    
-    getCandidatos(): Observable<any> {
-        throw new Error("Method not implemented.");
-    }
 
-    constructor(private http: Http){}
+    constructor(private http: Http) { }
 
-    cadastrarCandidato(candidato){
+    deleteCandidato(id: number): Observable<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("https://delineaapi.herokuapp.com/candidate/", candidato, {headers: headers});
+        return this.http.delete(`https://delineaapi.herokuapp.com/candidate/${id}/delete`, { headers: headers });
     }
-0
+
+    getCandidatos(): Observable<any> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get("https://delineaapi.herokuapp.com/candidate/", { headers: headers });
+    }
+
+    cadastrarCandidato(candidato) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(`https://delineaapi.herokuapp.com/candidate`, candidato, { headers: headers });
+    }
+
+    editarCandidato(candidato, id) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.patch(`https://delineaapi.herokuapp.com/candidate/${id}`, candidato, { headers: headers });
+    }
+    
 }

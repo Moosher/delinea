@@ -11,7 +11,7 @@ export const rootRouterConfig: Routes = [
     { path: 'candidato', component: CandidatoComponent, canActivate: [AuthGuard],
         children: [
             { path: '', component: ListagemCandidatoComponent, canActivate: [AuthGuard] },
-            { path: 'editar:id', redirectTo: 'cadastrar', canActivate: [AuthGuard] },
+            { path: 'editar/:id',component: DetalheCandidatoComponent, canActivate: [AuthGuard] },
         ],
     },
     { path: 'cadastrar', component: DetalheCandidatoComponent },
