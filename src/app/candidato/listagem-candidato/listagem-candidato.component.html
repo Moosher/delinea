@@ -2,7 +2,7 @@
     <img *ngIf="buscando" src="assets/loader.svg" alt="loader" width="50" height="50">
     <span *ngIf="msgErro" class="alert alert-danger">{{msgErro}}</span>
 </div>
-<table *ngIf="!buscando" class="table">
+<table class="table">
     <thead>
         <tr>
             <th scope="col">Nome completo</th>
@@ -13,9 +13,9 @@
     </thead>
     <tbody>
         <tr *ngFor="let candidato of candidatos">
-            <th scope="row">{{candidato.name}}</th>
-            <td>{{candidato.email}}</td>
-            <td>{{candidato.phone}}</td>
+            <th scope="row">{{candidato.name | isEmpty}}</th>
+            <td>{{candidato.email | isEmpty}}</td>
+            <td>{{candidato.phone | isEmpty}}</td>
             <td>
                 <a on-click="deleteCandidato(candidato)"><i class="fas fa-trash-alt"></i></a>
                 <a on-click="editCandidato(candidato)"><i class="fas fa-pen"></i></a>

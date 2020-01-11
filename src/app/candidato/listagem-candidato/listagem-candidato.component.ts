@@ -42,10 +42,13 @@ export class ListagemCandidatoComponent implements OnInit {
     }
 
     deleteCandidato(candidato: Candidate){
+        this.buscando = true;
         this.candidatoService.deleteCandidato(candidato.id).subscribe(
             res => {
+                this.buscando = false;
             },
             err => {
+                this.buscando = false;
                 this.msgErro =`${err.status}: ${err._body}`;
             }
         );

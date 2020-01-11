@@ -10,6 +10,7 @@ import { AuthService } from './auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CandidatoService } from './candidato/candidato.service';
 import { AuthGuard } from './auth/auth.guard';
+import { DependenciesModule } from './dependencies/dependencies.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { AuthGuard } from './auth/auth.guard';
     BrowserModule,
     HttpModule,
     FormsModule, 
+    DependenciesModule,
     ReactiveFormsModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true })
   ],
