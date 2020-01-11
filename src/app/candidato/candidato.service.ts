@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 
@@ -11,6 +11,7 @@ export class CandidatoService {
     deleteCandidato(id: number): Observable<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem("TOKEN"));
         return this.http.delete(`https://delineaapi.herokuapp.com/candidate/${id}/delete`, { headers: headers });
     }
 
