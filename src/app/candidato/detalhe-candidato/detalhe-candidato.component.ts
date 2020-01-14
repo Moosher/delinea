@@ -27,7 +27,6 @@ export class DetalheCandidatoComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
         this.candidato = new Candidate();
         this.route.params.subscribe(
             res => {
@@ -44,13 +43,13 @@ export class DetalheCandidatoComponent implements OnInit {
             dadosAcesso: new FormGroup({
                 username: new FormControl(this.candidato.username, Validators.required),
                 email: new FormControl(this.candidato.email, Validators.required),
-                password: new FormControl(null, Validators.required)
+                password: new FormControl(null, Validators.required) //Não carrega senha por segurança
             }),
             dadosPessoais: new FormGroup({
                 name: new FormControl(this.candidato.name, Validators.required),
                 cpf: new FormControl(this.candidato.cpf, Validators.required),
                 rg: new FormControl(this.candidato.rg, Validators.required),
-                birth_date: new FormControl(null, Validators.required),
+                birth_date: new FormControl(this.candidato.birth_date, Validators.required),
                 phone: new FormControl(this.candidato.phone, Validators.required),
             })
         });
@@ -59,32 +58,43 @@ export class DetalheCandidatoComponent implements OnInit {
     enviarDados() {
         let candidato = merge(this.formCandidato.get('dadosPessoais').value, this.formCandidato.get('dadosAcesso').value);
         this.enviando = true;
-        this.candidato ? this.cadastrarCandidato(candidato) : this.editarCandidato(candidato, this.candidato.id);
+        if(this.candidato.email){
+            this.editarCandidato(candidato, this.candidato.id);
+        }else{
+            this.cadastrarCandidato(candidato)
+        } 
     }
 
     cadastrarCandidato(candidato) {
-        this.candidatoService.cadastrarCandidato(candidato).subscribe(
-            res => {
+        this.candidatoService.cadastrarCandidato(candidato)
+            .then((response) => {
                 this.enviando = false;
-                this.router.navigate(['/login']);
-            },
-            err => {
-                this.msgErro =`${err.status}: ${err._body}`;
-                this.enviando = false;
-            }
-        );
+                if(response.target.status == 200 || response.target.status == 201){
+                    this.router.navigate(['/login']);
+                }else{
+                    this.msgErro = `${response.target.status} - ${JSON.stringify(response.target.response)}`;
+                }
+            }).catch(function (error) {
+                this.tratarErro(error);
+            });
     }
 
     editarCandidato(candidato, id: number) {
-        this.candidatoService.editarCandidato(candidato, id).subscribe(
-            res => {
-                this.enviando = false;
-                this.router.navigate(['/login']);
-            },
-            err => {
-                this.enviando = false;
-                this.msgErro =`${err.status}: ${err._body}`;
+        this.candidatoService.editarCandidato(candidato, id)
+        .then((response) => {
+            this.enviando = false;
+            if(response.target.status == 200 || response.target.status == 201){
+                this.router.navigate(['/candidato']);
+            }else{
+                this.msgErro = `${response.target.status} - ${JSON.stringify(response.target.response)}`;
             }
-        );
+        }).catch(function (error) {
+            this.tratarErro(error);
+        });
+    }
+
+    tratarErro(error){
+        this.enviando = false;
+        this.msgErro = `${error}`;
     }
 }
