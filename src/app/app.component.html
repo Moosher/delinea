@@ -1,4 +1,7 @@
 <header>
+  <div class="w-100 d-flex justify-content-end pt-2 pr-2">
+    <a *ngIf="authService.token" class="btnSair" on-click="sair()">SAIR</a>
+  </div>
   <h1 class="mt-4 ml-2 d-flex justify-content-center">
     <a routerLink="/candidato"><img src="assets/logo.png" alt="delinea"></a>
   </h1>

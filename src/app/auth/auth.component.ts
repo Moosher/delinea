@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit {
         this.authService.doLogin(this.formLogin.value).subscribe(
             res => {
                 this.enviando = false;
-                this.authService.setToken(res.blob.toString());
+                this.authService.setToken(JSON.parse(res._body).access_token);
                 this.router.navigate(['/candidato']);
             },
             err => {

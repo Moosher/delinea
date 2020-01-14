@@ -46,6 +46,7 @@ export class ListagemCandidatoComponent implements OnInit {
         this.candidatoService.deleteCandidato(candidato.id).subscribe(
             res => {
                 this.buscando = false;
+                this.carregarCandidatos();
             },
             err => {
                 this.buscando = false;
